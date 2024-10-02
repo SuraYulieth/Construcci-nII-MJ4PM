@@ -5,8 +5,10 @@ import java.sql.ResultSet;
 import club.config.MYSQLConnection;
 import club.dao.interfaces.PartnerDao;
 import club.dto.PartnerDto;
+import club.dto.UserDto;
 import club.helpers.Helper;
 import club.model.Partner;
+import club.model.Person;
 import club.model.User;
 
 public class PartnerDaoImplementation implements PartnerDao{
@@ -23,10 +25,10 @@ public class PartnerDaoImplementation implements PartnerDao{
 		preparedStatement.close();
 	}
 
-	public PartnerDto findById(PartnerDto partnerDto) throws Exception {
+	public PartnerDto findPartnerByUserId(UserDto userDto) throws Exception {
 		String query = "SELECT ID,USERID,AMOUNT,TYPE,CREATIONDATE FROM PARTNER WHERE ID = ?";
 		PreparedStatement preparedStatement = MYSQLConnection.getConnection().prepareStatement(query);
-		preparedStatement.setLong(1, partnerDto.getIdDto());
+		preparedStatement.setLong(1, userDto.getIdDto());
 		ResultSet resulSet = preparedStatement.executeQuery();
 		if (resulSet.next()) {
 			Partner partner = new Partner();
@@ -36,6 +38,7 @@ public class PartnerDaoImplementation implements PartnerDao{
 			partner.setAvaibleFunds(resulSet.getDouble("AMOUNT"));
 			partner.setSuscriptionType(resulSet.getString("TYPE"));
 			partner.setAfiliationDate(resulSet.getDate("CREATIONDATE"));
+			partner.setUserId(user);
 			resulSet.close();
 			preparedStatement.close();
 			return Helper.parse(partner);
@@ -44,5 +47,6 @@ public class PartnerDaoImplementation implements PartnerDao{
 		preparedStatement.close();
 		return null;
 	}
+	
 	
 }

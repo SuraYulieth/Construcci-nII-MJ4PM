@@ -41,6 +41,9 @@ public class PartnerController implements InterfaceController{
             return options(option);
         } catch (Exception e) {
             System.out.println(e.getMessage());
+            for(StackTraceElement st : e.getStackTrace()) {
+            	System.out.println(st.toString());
+            }
             return true;
         }
     }
@@ -86,25 +89,20 @@ public class PartnerController implements InterfaceController{
 		personDto.setIdentificationCardDto(document);
 		
 		UserDto userDto = new UserDto();
+		userDto.setPersonIdDto(personDto);
 		userDto.setUserNameDto(userName);
 		userDto.setPasswordDto(password);
 		userDto.setRolDto("guest");
-		userDto.setPersonIdDto(personDto);
 		
 		GuestDto guestDto = new GuestDto();
 		guestDto.setInvitationStatusDto("inactive");
-		System.out.println("Enter the partner ID");
-		Long id = Utils.getReader().nextLong();
-		partnerDto.setIdDto(id);
-		guestDto.setIdDto(partnerDto);
-		
+		guestDto.setPartnerId(partnerDto);
 		guestDto.setUsarIdDto(userDto);
 	
 		this.service.createGuest(guestDto);
 		System.out.print("The guest was succesfully created");;
 	}
 	
-	
-	
+
 }
 	

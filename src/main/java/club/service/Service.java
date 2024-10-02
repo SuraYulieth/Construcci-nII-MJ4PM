@@ -57,9 +57,10 @@ public class Service implements AdminService, LoginService, PartnerService {
 
 	@Override
 	public void createGuest(GuestDto guestDto) throws Exception {
-		this.createUser(guestDto.getUsarIdDto());
-		guestDto.setIdDto(guestDto.getIdDto());
+		this.createUser(guestDto.getUsarIdDto());  
 		guestDto.setUsarIdDto(userDao.findByUserName(guestDto.getUsarIdDto()));
+		PartnerDto partnerDto = partnerDao.findPartnerByUserId(user);
+		guestDto.setPartnerId(partnerDto);
 		this.guestDao.createGuest(guestDto);
 	}
 	

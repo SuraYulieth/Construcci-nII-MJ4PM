@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 
 import club.config.MYSQLConnection;
 import club.dao.interfaces.UserDao;
+import club.dto.PersonDto;
 import club.dto.UserDto;
 import club.model.User;
 import club.model.Person;
@@ -63,7 +64,28 @@ public class UserDaoImplementation implements UserDao{
 	}
 	
 	
-	
+	public UserDto findById(UserDto userDto) throws Exception {
+		String query = "SELECT ID,PERSONNID,USERNAME,PASSWORD,ROLE FROM USER WHERE ID = ?";
+		PreparedStatement preparedStatement = MYSQLConnection.getConnection().prepareStatement(query);
+		preparedStatement.setLong(1, userDto.getIdDto());
+		ResultSet resulSet = preparedStatement.executeQuery();
+		if (resulSet.next()) {
+			User user = new User();
+			user.setId(resulSet.getLong("ID"));
+			user.setUserName(resulSet.getString("USERNAME"));
+			Person person = new Person();
+			person.setIdentificationCard(resulSet.getLong("PERSONNID"));
+			user.setPersonId(person);
+			user.setRol(resulSet.getString("ROLE"));
+			user.setPassword(resulSet.getString("PASSWORD"));
+			resulSet.close();
+			preparedStatement.close();
+			return Helper.parse(user);
+		}
+		resulSet.close();
+		preparedStatement.close();
+		return null;
+	}
 	
 	
 	

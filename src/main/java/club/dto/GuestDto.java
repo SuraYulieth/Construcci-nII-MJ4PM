@@ -1,43 +1,38 @@
 package club.dto;
 
 public class GuestDto {
-	
-	private PartnerDto idDto;
+	private long id;
+	private PartnerDto partnerId;
 	private UserDto usarIdDto;
 	private long registrationGuestDto;
 	private String invitationStatusDto;
-	
-	public GuestDto() {
+	public long getId() {
+		return id;
 	}
-
-	public PartnerDto getIdDto() {
-		return idDto;
+	public void setId(long id) {
+		this.id = id;
 	}
-
-	public void setIdDto(PartnerDto idDto) {
-		this.idDto = idDto;
+	public PartnerDto getPartnerId() {
+		return partnerId;
 	}
-
+	public void setPartnerId(PartnerDto partnerId) {
+		this.partnerId = partnerId;
+	}
 	public UserDto getUsarIdDto() {
 		return usarIdDto;
 	}
-
 	public void setUsarIdDto(UserDto usarIdDto) {
 		this.usarIdDto = usarIdDto;
 	}
-
 	public long getRegistrationGuestDto() {
 		return registrationGuestDto;
 	}
-
 	public void setRegistrationGuestDto(long registrationGuestDto) {
 		this.registrationGuestDto = registrationGuestDto;
 	}
-
 	public String getInvitationStatusDto() {
 		return invitationStatusDto;
 	}
-
 	public void setInvitationStatusDto(String invitationStatusDto) {
 		this.invitationStatusDto = invitationStatusDto;
 	}

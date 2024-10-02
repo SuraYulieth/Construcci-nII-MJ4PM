@@ -19,7 +19,7 @@ public class Helper {
 		personDto.setCellPhoneNumberDto(person.getCellPhoneNumber());
 		return personDto;
 	}
-	
+
 	public static Person parse(PersonDto personDto) {
 		Person person = new Person();
 		person.setId(personDto.getIdDto());
@@ -28,27 +28,31 @@ public class Helper {
 		person.setName(personDto.getNameDto());
 		return person;
 	}
-	
+
 	public static UserDto parse(User user) {
 		UserDto userDto = new UserDto();
 		userDto.setIdDto(user.getId());
 		userDto.setPasswordDto(user.getPassword());
-		userDto.setPersonIdDto(parse(user.getPersonId()));
+		if (user.getPersonId() != null) {
+			userDto.setPersonIdDto(parse(user.getPersonId()));
+		}
 		userDto.setRolDto(user.getRol());
 		userDto.setUserNameDto(user.getUserName());
 		return userDto;
 	}
-	
+
 	public static User parse(UserDto userDto) {
 		User user = new User();
 		user.setId(userDto.getIdDto());
 		user.setPassword(userDto.getPasswordDto());
-		user.setPersonId(parse(userDto.getPersonIdDto()));
+		if (userDto.getPersonIdDto() != null) {
+			user.setPersonId(parse(userDto.getPersonIdDto()));
+		}
 		user.setRol(userDto.getRolDto());
 		user.setUserName(userDto.getUserNameDto());
 		return user;
 	}
-	
+
 	public static Partner parse(PartnerDto partnerDto) {
 		Partner partner = new Partner();
 		partner.setAfiliationDate(partnerDto.getAfiliationDateDto());
@@ -58,7 +62,7 @@ public class Helper {
 		partner.setUserId(parse(partnerDto.getUserIdDto()));
 		return partner;
 	}
-	
+
 	public static PartnerDto parse(Partner partner) {
 		PartnerDto partnerDto = new PartnerDto();
 		partnerDto.setAfiliationDateDto(partner.getAfiliationDate());
@@ -68,23 +72,23 @@ public class Helper {
 		partnerDto.setUserIdDto(parse(partner.getUserId()));
 		return partnerDto;
 	}
-	
+
 	public static Guest parse(GuestDto guestDto) {
 		Guest guest = new Guest();
-		guest.setId(parse(guestDto.getIdDto()));
-		guest.setInvitationStatus(guestDto.getInvitationStatusDto());;
-		guest.setRegistrationGuest(guestDto.getRegistrationGuestDto());;
-		guest.setUsarId(parse(guestDto.getUsarIdDto()));
+		guest.setUserId(parse(guestDto.getUsarIdDto()));
+		guest.setPartnerId(parse(guestDto.getPartnerId()));
+		guest.setInvitationStatus(guestDto.getInvitationStatusDto());
+		guest.setId(guestDto.getId());
 		return guest;
 	}
-	
+
 	public static GuestDto parse(Guest guest) {
 		GuestDto guestDto = new GuestDto();
-		guestDto.setIdDto(parse(guest.getId()));
+		guestDto.setId(guest.getId());
 		guestDto.setInvitationStatusDto(guest.getInvitationStatus());
-		guestDto.setRegistrationGuestDto(guest.getRegistrationGuest());
-		guestDto.setUsarIdDto(parse(guest.getUsarId()));
+		guestDto.setPartnerId(parse(guest.getPartnerId()));
+		guestDto.setUsarIdDto(parse(guest.getUserId()));
 		return guestDto;
 	}
-	
+
 }
