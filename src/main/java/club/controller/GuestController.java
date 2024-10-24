@@ -1,10 +1,16 @@
 package club.controller;
 
-public class GuestController implements InterfaceController{
+import org.springframework.stereotype.Controller;
 
-	public GuestController(){
-		
-	}
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@Controller
+public class GuestController implements InterfaceController{
 
 	@Override
 	public void session() throws Exception {
@@ -26,12 +32,7 @@ public class GuestController implements InterfaceController{
 	}
 
 	private boolean options(String option) {
-		// TODO Auto-generated method stub
 		return false;
-	}
-	
-	private void bePartner() {
-		
 	}
 	
 }

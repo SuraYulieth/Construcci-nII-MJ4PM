@@ -2,13 +2,33 @@ package club.model;
 
 import java.sql.Date;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name="invoice")
 public class Invoice {
 
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="billid")
 	private String billId;
+	@Column(name="idmember")
 	private String idMember;
+	@JoinColumn(name="iduser")
+	@OneToOne
 	private User idUser;
+	@Column(name="generationdate")
 	private Date generationDate;
+	@Column(name="amount")
 	private double amount;
+	@Column(name="status")
 	private boolean status;
 	
 	public Invoice() {}

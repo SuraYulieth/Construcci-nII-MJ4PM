@@ -5,8 +5,8 @@ public class UserDto {
 	private long idDto;
 	private String userNameDto;
 	private String passwordDto;
-	private String rolDto;
-	private PersonDto personIdDto;
+	private String roleDto;
+	private PersonDto personnIdDto;
 	
 	public UserDto() {}
 
@@ -34,20 +34,20 @@ public class UserDto {
 		this.passwordDto = passwordDto;
 	}
 
-	public String getRolDto() {
-		return rolDto;
+	public String getRoleDto() {
+		return roleDto;
 	}
 
-	public void setRolDto(String rolDto) {
-		this.rolDto = rolDto;
+	public void setRoleDto(String roleDto) {
+		this.roleDto = roleDto;
 	}
 
-	public PersonDto getPersonIdDto() {
-		return personIdDto;
+	public PersonDto getPersonnIdDto() {
+		return personnIdDto;
 	}
 
-	public void setPersonIdDto(PersonDto personIdDto) {
-		this.personIdDto = personIdDto;
+	public void setPersonnIdDto(PersonDto personnIdDto) {
+		this.personnIdDto = personnIdDto;
 	}
 	
 	

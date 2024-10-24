@@ -2,15 +2,13 @@ package club.dto;
 
 import java.sql.Date;
 
-import club.model.User;
-
 public class PartnerDto {
 
 	private long idDto;
 	private UserDto userIdDto;
-	private double avaibleFundsDto;
-	private String suscriptionTypeDto;
-	private Date afiliationDateDto;
+	private double amountDto;
+	private String typeDto;
+	private Date creationDateDto;
 	
 	public PartnerDto() {}
 
@@ -30,28 +28,28 @@ public class PartnerDto {
 		this.userIdDto = userIdDto;
 	}
 
-	public double getAvaibleFundsDto() {
-		return avaibleFundsDto;
+	public double getAmountDto() {
+		return amountDto;
 	}
 
-	public void setAvaibleFundsDto(double avaibleFundsDto) {
-		this.avaibleFundsDto = avaibleFundsDto;
+	public void setAmountDto(double amountDto) {
+		this.amountDto = amountDto;
 	}
 
-	public String getSuscriptionTypeDto() {
-		return suscriptionTypeDto;
+	public String getTypeDto() {
+		return typeDto;
 	}
 
-	public void setSuscriptionTypeDto(String suscriptionTypeDto) {
-		this.suscriptionTypeDto = suscriptionTypeDto;
+	public void setTypeDto(String typeDto) {
+		this.typeDto = typeDto;
 	}
 
-	public Date getAfiliationDateDto() {
-		return afiliationDateDto;
+	public Date getCreationDateDto() {
+		return creationDateDto;
 	}
 
-	public void setAfiliationDateDto(Date afiliationDateDto) {
-		this.afiliationDateDto = afiliationDateDto;
+	public void setCreationDateDto(Date creationDateDto) {
+		this.creationDateDto = creationDateDto;
 	}
 	
 	

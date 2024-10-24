@@ -1,30 +1,34 @@
 package club.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+
 import club.controller.validator.PersonValidator;
 import club.controller.validator.UserValidator;
 import club.dto.GuestDto;
 import club.dto.PersonDto;
 import club.dto.UserDto;
 import club.dto.PartnerDto;
-import club.service.Service;
 import club.service.interfaces.PartnerService;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-
+@Getter
+@Setter
+@NoArgsConstructor
+@Controller
 public class PartnerController implements InterfaceController{
 	
+	@Autowired
 	private PersonValidator personValidator;
+	@Autowired
 	private UserValidator userValidator;
-	private PartnerService service;
-	private PartnerDto partnerDto;
-	private static final String MENU = "MENU \n 1. Request to VIP \n 2. Invoice history \n 3. Register Consumption \n 4. increase funds \n 5. Create a guest \n";
 	
-	public PartnerController() {
-		this.service = new Service();
-		this.personValidator = new PersonValidator();
-		this.userValidator = new UserValidator();
-		this.partnerDto = new PartnerDto();
-	}
-
+	private PartnerDto partnerDto;
+	@Autowired
+	private PartnerService service;
+	private static final String MENU = "MENU \n 1. Request to VIP \n 2. Invoice history \n 3. Register Consumption \n 4. increase funds \n 5. Create a guest \n";
 
 	@Override
 	public void session() throws Exception {
@@ -85,17 +89,17 @@ public class PartnerController implements InterfaceController{
 		
 		PersonDto personDto = new PersonDto();
 		personDto.setNameDto(name);
-		personDto.setCellPhoneNumberDto(cellPhoneNumber);
-		personDto.setIdentificationCardDto(document);
+		personDto.setCellPhoneDto(cellPhoneNumber);
+		personDto.setDocumentDto(document);
 		
 		UserDto userDto = new UserDto();
-		userDto.setPersonIdDto(personDto);
+		userDto.setPersonnIdDto(personDto);
 		userDto.setUserNameDto(userName);
 		userDto.setPasswordDto(password);
-		userDto.setRolDto("guest");
+		userDto.setRoleDto("guest");
 		
 		GuestDto guestDto = new GuestDto();
-		guestDto.setInvitationStatusDto("inactive");
+		guestDto.setStatusDto("inactive");
 		guestDto.setPartnerId(partnerDto);
 		guestDto.setUsarIdDto(userDto);
 	

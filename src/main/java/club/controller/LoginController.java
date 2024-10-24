@@ -1,27 +1,31 @@
 package club.controller;
 
 import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+
 import java.util.HashMap;
 
 import club.controller.validator.UserValidator;
 import club.dto.UserDto;
-import club.service.Service;
 import club.service.interfaces.LoginService;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
+@Controller
 public class LoginController implements InterfaceController{
-	
+	@Autowired
 	private UserValidator userValidator;
+	@Autowired
 	private LoginService service;
 	private static final String MENU= ("MENU \n 1. Login \n 2. Stop execution");
 	private Map<String,InterfaceController> roles;
 
-	public LoginController() {
-		this.userValidator = new UserValidator();
-		this.service = new Service();
-		InterfaceController adminController = new AdminController();
-		InterfaceController partnerController = new PartnerController();
-		InterfaceController guestController = new GuestController();
-		
+	@Autowired
+	public LoginController(AdminController adminController, GuestController guestController, PartnerController partnerController) {
 		this.roles = new HashMap<String,InterfaceController>();
 		roles.put("admin", adminController);
 		roles.put("guest", guestController);
@@ -77,37 +81,11 @@ public class LoginController implements InterfaceController{
 		userDto.setUserNameDto(userName);
 		this.service.login(userDto);
 		
-		if(roles.get(userDto.getRolDto())==null) {
+		if(roles.get(userDto.getRoleDto())==null) {
 			throw new Exception ("Invalid role");
 		}
-		roles.get(userDto.getRolDto()).session();
-	}
-
-
-
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+		roles.get(userDto.getRoleDto()).session();
+	}	
 	
 	
 }

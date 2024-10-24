@@ -15,16 +15,16 @@ public class Helper {
 		PersonDto personDto = new PersonDto();
 		personDto.setIdDto(person.getId());
 		personDto.setNameDto(person.getName());
-		personDto.setIdentificationCardDto(person.getIdentificationCard());
-		personDto.setCellPhoneNumberDto(person.getCellPhoneNumber());
+		personDto.setDocumentDto(person.getDocument());
+		personDto.setCellPhoneDto(person.getCellPhone());
 		return personDto;
 	}
 
 	public static Person parse(PersonDto personDto) {
 		Person person = new Person();
 		person.setId(personDto.getIdDto());
-		person.setIdentificationCard(personDto.getIdentificationCardDto());
-		person.setCellPhoneNumber(personDto.getCellPhoneNumberDto());
+		person.setDocument(personDto.getDocumentDto());
+		person.setCellPhone(personDto.getCellPhoneDto());
 		person.setName(personDto.getNameDto());
 		return person;
 	}
@@ -33,10 +33,10 @@ public class Helper {
 		UserDto userDto = new UserDto();
 		userDto.setIdDto(user.getId());
 		userDto.setPasswordDto(user.getPassword());
-		if (user.getPersonId() != null) {
-			userDto.setPersonIdDto(parse(user.getPersonId()));
+		if (user.getPersonnId() != null) {
+			userDto.setPersonnIdDto(parse(user.getPersonnId()));
 		}
-		userDto.setRolDto(user.getRol());
+		userDto.setRoleDto(user.getRole());
 		userDto.setUserNameDto(user.getUserName());
 		return userDto;
 	}
@@ -45,30 +45,30 @@ public class Helper {
 		User user = new User();
 		user.setId(userDto.getIdDto());
 		user.setPassword(userDto.getPasswordDto());
-		if (userDto.getPersonIdDto() != null) {
-			user.setPersonId(parse(userDto.getPersonIdDto()));
+		if (userDto.getPersonnIdDto() != null) {
+			user.setPersonnId(parse(userDto.getPersonnIdDto()));
 		}
-		user.setRol(userDto.getRolDto());
+		user.setRole(userDto.getRoleDto());
 		user.setUserName(userDto.getUserNameDto());
 		return user;
 	}
 
 	public static Partner parse(PartnerDto partnerDto) {
 		Partner partner = new Partner();
-		partner.setAfiliationDate(partnerDto.getAfiliationDateDto());
-		partner.setAvaibleFunds(partnerDto.getAvaibleFundsDto());
+		partner.setCreationDate(partnerDto.getCreationDateDto());
+		partner.setAmount(partnerDto.getAmountDto());
 		partner.setId(partnerDto.getIdDto());
-		partner.setSuscriptionType(partnerDto.getSuscriptionTypeDto());
+		partner.setType(partnerDto.getTypeDto());
 		partner.setUserId(parse(partnerDto.getUserIdDto()));
 		return partner;
 	}
 
 	public static PartnerDto parse(Partner partner) {
 		PartnerDto partnerDto = new PartnerDto();
-		partnerDto.setAfiliationDateDto(partner.getAfiliationDate());
-		partnerDto.setAvaibleFundsDto(partner.getAvaibleFunds());
+		partnerDto.setCreationDateDto(partner.getCreationDate());
+		partnerDto.setAmountDto(partner.getAmount());
 		partnerDto.setIdDto(partner.getId());
-		partnerDto.setSuscriptionTypeDto(partner.getSuscriptionType());
+		partnerDto.setTypeDto(partner.getType());
 		partnerDto.setUserIdDto(parse(partner.getUserId()));
 		return partnerDto;
 	}
@@ -77,7 +77,7 @@ public class Helper {
 		Guest guest = new Guest();
 		guest.setUserId(parse(guestDto.getUsarIdDto()));
 		guest.setPartnerId(parse(guestDto.getPartnerId()));
-		guest.setInvitationStatus(guestDto.getInvitationStatusDto());
+		guest.setStatus(guestDto.getStatusDto());
 		guest.setId(guestDto.getId());
 		return guest;
 	}
@@ -85,7 +85,7 @@ public class Helper {
 	public static GuestDto parse(Guest guest) {
 		GuestDto guestDto = new GuestDto();
 		guestDto.setId(guest.getId());
-		guestDto.setInvitationStatusDto(guest.getInvitationStatus());
+		guestDto.setStatusDto(guest.getStatus());
 		guestDto.setPartnerId(parse(guest.getPartnerId()));
 		guestDto.setUsarIdDto(parse(guest.getUserId()));
 		return guestDto;

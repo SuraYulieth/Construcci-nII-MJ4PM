@@ -2,11 +2,9 @@ package club.service;
 
 import java.sql.SQLException;
 
-import club.controller.Utils;
-import club.dao.GuestDaoImplementation;
-import club.dao.PartnerDaoImplementation;
-import club.dao.PersonDaoImplementation;
-import club.dao.UserDaoImplementation;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import club.dao.interfaces.GuestDao;
 import club.dao.interfaces.PartnerDao;
 import club.dao.interfaces.PersonDao;
@@ -18,23 +16,25 @@ import club.dto.UserDto;
 import club.service.interfaces.AdminService;
 import club.service.interfaces.LoginService;
 import club.service.interfaces.PartnerService;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-public class Service implements AdminService, LoginService, PartnerService {
-	
+@Getter
+@Setter
+@NoArgsConstructor
+@Service
+public class ClubService implements AdminService, LoginService, PartnerService {
+	@Autowired
 	private UserDao userDao;
+	@Autowired
 	private PersonDao personDao;
+	@Autowired
 	private PartnerDao partnerDao;
-	private GuestDao guestDao;
-	private PartnerDto partnerDto;
-	
-	public static UserDto user;
+	@Autowired
+	private GuestDao guestDao;	
 
-	public Service() {
-		this.userDao = new UserDaoImplementation();
-		this.personDao = new PersonDaoImplementation();
-		this.partnerDao = new PartnerDaoImplementation();
-		this.guestDao = new GuestDaoImplementation();
-	}
+	public static UserDto user;
 
 	@Override
 	public void login(UserDto userDto) throws Exception {
@@ -45,7 +45,7 @@ public class Service implements AdminService, LoginService, PartnerService {
 		if (!userDto.getPasswordDto().equals(validateDto.getPasswordDto())) {
 			throw new Exception("User name or password incorrect");
 		}
-		userDto.setRolDto(validateDto.getRolDto());
+		userDto.setRoleDto(validateDto.getRoleDto());
 		user = validateDto;
 	}
 
@@ -72,17 +72,17 @@ public class Service implements AdminService, LoginService, PartnerService {
 	}
 	
 	private void createUser(UserDto userDto) throws Exception{
-		this.createPerson(userDto.getPersonIdDto());
-		PersonDto personDto = personDao.findByDocument(userDto.getPersonIdDto());
-		userDto.setPersonIdDto(personDto);
+		this.createPerson(userDto.getPersonnIdDto());
+		PersonDto personDto = personDao.findByDocument(userDto.getPersonnIdDto());
+		userDto.setPersonnIdDto(personDto);
 		if(this.userDao.existsByUserName(userDto)) {
-			this.personDao.deletePerson(userDto.getPersonIdDto());
+			this.personDao.deletePerson(userDto.getPersonnIdDto());
 			throw new Exception("This user exists");
 		}
 		try {
 			this.userDao.createUser(userDto);
 		} catch(SQLException e) {
-			this.personDao.deletePerson(userDto.getPersonIdDto());
+			this.personDao.deletePerson(userDto.getPersonnIdDto());
 		}
 	}
 	

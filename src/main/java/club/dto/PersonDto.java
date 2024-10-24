@@ -3,9 +3,9 @@ package club.dto;
 public class PersonDto {
 
 	private long idDto;
-	private long identificationCardDto;
+	private long documentDto;
 	private String nameDto;
-	private String cellPhoneNumberDto;
+	private String cellPhoneDto;
 	
 	public PersonDto() {	
 	}
@@ -18,12 +18,12 @@ public class PersonDto {
 		this.idDto = idDto;
 	}
 
-	public long getIdentificationCardDto() {
-		return identificationCardDto;
+	public long getDocumentDto() {
+		return documentDto;
 	}
 
-	public void setIdentificationCardDto(long identificationCardDto) {
-		this.identificationCardDto = identificationCardDto;
+	public void setDocumentDto(long documentDto) {
+		this.documentDto = documentDto;
 	}
 
 	public String getNameDto() {
@@ -34,12 +34,12 @@ public class PersonDto {
 		this.nameDto = nameDto;
 	}
 
-	public String getCellPhoneNumberDto() {
-		return cellPhoneNumberDto;
+	public String getCellPhoneDto() {
+		return cellPhoneDto;
 	}
 
-	public void setCellPhoneNumberDto(String cellPhoneNumberDto) {
-		this.cellPhoneNumberDto = cellPhoneNumberDto;
+	public void setCellPhoneDto(String cellPhoneDto) {
+		this.cellPhoneDto = cellPhoneDto;
 	}
 	
 	

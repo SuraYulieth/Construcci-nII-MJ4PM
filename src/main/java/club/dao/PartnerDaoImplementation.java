@@ -1,52 +1,38 @@
 package club.dao;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import club.config.MYSQLConnection;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import club.dao.interfaces.PartnerDao;
+import club.dao.repository.PartnerRepository;
 import club.dto.PartnerDto;
 import club.dto.UserDto;
 import club.helpers.Helper;
 import club.model.Partner;
-import club.model.Person;
 import club.model.User;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@Service
 public class PartnerDaoImplementation implements PartnerDao{
-	
+	@Autowired
+	public PartnerRepository partnerRepository;
+
+	@Override
 	public void createPartner(PartnerDto partnerDto) throws Exception {
 		Partner partner = Helper.parse(partnerDto);
-		String query = "INSERT INTO PARTNER(USERID,AMOUNT,TYPE,CREATIONDATE) VALUES (?,?,?,?) ";
-		PreparedStatement preparedStatement = MYSQLConnection.getConnection().prepareStatement(query);
-		preparedStatement.setLong(1, partner.getUserId().getId());
-		preparedStatement.setDouble(2, partner.getAvaibleFunds());
-		preparedStatement.setString(3, partner.getSuscriptionType());
-		preparedStatement.setDate(4, partner.getAfiliationDate());
-		preparedStatement.execute();
-		preparedStatement.close();
-	}
-
-	public PartnerDto findPartnerByUserId(UserDto userDto) throws Exception {
-		String query = "SELECT ID,USERID,AMOUNT,TYPE,CREATIONDATE FROM PARTNER WHERE ID = ?";
-		PreparedStatement preparedStatement = MYSQLConnection.getConnection().prepareStatement(query);
-		preparedStatement.setLong(1, userDto.getIdDto());
-		ResultSet resulSet = preparedStatement.executeQuery();
-		if (resulSet.next()) {
-			Partner partner = new Partner();
-			partner.setId(resulSet.getLong("ID"));
-			User user = new User();
-			user.setId(resulSet.getLong("USERID"));
-			partner.setAvaibleFunds(resulSet.getDouble("AMOUNT"));
-			partner.setSuscriptionType(resulSet.getString("TYPE"));
-			partner.setAfiliationDate(resulSet.getDate("CREATIONDATE"));
-			partner.setUserId(user);
-			resulSet.close();
-			preparedStatement.close();
-			return Helper.parse(partner);
-		}
-		resulSet.close();
-		preparedStatement.close();
-		return null;
+		partnerRepository.save(partner);
 	}
 	
+	@Override
+	public PartnerDto findPartnerByUserId(UserDto userDto) throws Exception {
+		User user = Helper.parse(userDto);
+		Partner partner = partnerRepository.findPartnerByUserId(user);
+		return Helper.parse(partner);
+	}
 	
 }
