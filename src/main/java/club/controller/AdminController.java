@@ -2,7 +2,8 @@ package club.controller;
 
 import java.sql.Date;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
 import club.controller.validator.PersonValidator;
 import club.controller.validator.UserValidator;
 import club.dto.PartnerDto;
@@ -16,7 +17,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-@Controller
+@RestController
 public class AdminController implements InterfaceController{
 	@Autowired
 	private PersonValidator  personValidator;
@@ -24,53 +25,13 @@ public class AdminController implements InterfaceController{
 	private UserValidator userValidator;
 	@Autowired
 	private AdminService service;
-	
-	private static final String MENU = "MENU \n 1. Create a partner \n 2. Run promotion to VIP \n 3. Logout \n";
+	//private static final String MENU = "MENU \n 1. Create a partner \n 2. Run promotion to VIP \n 3. Logout \n";
 	
 	@Override
 	public void session() throws Exception{
-		boolean session = true;
-		while (session) {
-			session = menu();
-		}	
-	}
-	
-	private boolean menu() {
-		try {
-			//System.out.print("Welcome " + Service.user.getUserNameDto());
-			System.out.print(MENU);
-			String option = Utils.getReader().nextLine();
-			return options(option);
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-			return true;
-		}
-	}
-	
-	private boolean options(String option) throws Exception{
-		switch(option) {
-		
-		case "1": {
-			this.createPartner();
-			return true;
-		}
-		
-		case "2":{
-			//Función beVIP()
-		}
-		
-		case "3":{
-			System.out.println("Session has been logged out");
-			return false;
-		}
-		
-		default: {
-			System.out.println("ingrese una opcion valida");
-			return true;
-		}
-		}
 	}
 
+	@PostMapping("/club")
 	public void createPartner() throws Exception {
 		System.out.println("Enter name's partner");
 		String name = Utils.getReader().nextLine();
