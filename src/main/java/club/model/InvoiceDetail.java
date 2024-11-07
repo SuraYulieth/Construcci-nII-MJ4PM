@@ -8,7 +8,13 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@Getter
+@Setter
+@NoArgsConstructor
 @Entity
 @Table(name="invoicedetail")
 public class InvoiceDetail {
@@ -17,7 +23,7 @@ public class InvoiceDetail {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id")
 	private long id; 
-	@JoinColumn(name="invoideid")
+	@JoinColumn(name="invoiceid")
 	@OneToOne
 	private Invoice invoiceId;
 	@Column(name="item")
@@ -27,47 +33,7 @@ public class InvoiceDetail {
 	@Column(name="amount")
 	private double amount;
 	
-	public InvoiceDetail(){}
 
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
-
-	public Invoice getInvoiceId() {
-		return invoiceId;
-	}
-
-	public void setInvoiceId(Invoice invoiceId) {
-		this.invoiceId = invoiceId;
-	}
-
-	public int getItem() {
-		return item;
-	}
-
-	public void setItem(int item) {
-		this.item = item;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public double getAmount() {
-		return amount;
-	}
-
-	public void setAmount(double amount) {
-		this.amount = amount;
-	}
 	
 	
 }

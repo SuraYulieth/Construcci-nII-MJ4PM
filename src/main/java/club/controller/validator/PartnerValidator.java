@@ -10,6 +10,5 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @Component
-public class PartnerValidator extends CommonsValidator{
-		
+public class PartnerValidator extends CommonsValidator{	
 }

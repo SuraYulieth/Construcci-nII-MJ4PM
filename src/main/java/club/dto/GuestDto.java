@@ -5,6 +5,8 @@ public class GuestDto {
 	private PartnerDto partnerId;
 	private UserDto usarIdDto;
 	private String statusDto;
+	public Object getUsarIdDto;
+	
 	public long getId() {
 		return id;
 	}

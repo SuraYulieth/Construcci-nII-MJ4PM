@@ -9,11 +9,16 @@ import club.dao.interfaces.GuestDao;
 import club.dao.interfaces.PartnerDao;
 import club.dao.interfaces.PersonDao;
 import club.dao.interfaces.UserDao;
+import club.dao.interfaces.InvoiceDao;
+import club.dao.interfaces.InvoiceDetailDao;
 import club.dto.GuestDto;
+import club.dto.InvoiceDetailDto;
+import club.dto.InvoiceDto;
 import club.dto.PartnerDto;
 import club.dto.PersonDto;
 import club.dto.UserDto;
 import club.service.interfaces.AdminService;
+import club.service.interfaces.GuestService;
 import club.service.interfaces.LoginService;
 import club.service.interfaces.PartnerService;
 import lombok.Getter;
@@ -24,7 +29,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @Service
-public class ClubService implements AdminService, LoginService, PartnerService {
+public class ClubService implements AdminService, LoginService, PartnerService, GuestService {
 	@Autowired
 	private UserDao userDao;
 	@Autowired
@@ -33,6 +38,10 @@ public class ClubService implements AdminService, LoginService, PartnerService {
 	private PartnerDao partnerDao;
 	@Autowired
 	private GuestDao guestDao;	
+	@Autowired
+	private InvoiceDao invoiceDao;
+	@Autowired
+	private InvoiceDetailDao invoiceDetailDao;
 
 	public static UserDto user;
 
@@ -59,6 +68,9 @@ public class ClubService implements AdminService, LoginService, PartnerService {
 	public void createGuest(GuestDto guestDto) throws Exception {
 		this.createUser(guestDto.getUsarIdDto());  
 		guestDto.setUsarIdDto(userDao.findByUserName(guestDto.getUsarIdDto()));
+		UserDto user = new UserDto();
+		user.setUserNameDto("davin");
+		user = userDao.findByUserName(user);
 		PartnerDto partnerDto = partnerDao.findPartnerByUserId(user);
 		guestDto.setPartnerId(partnerDto);
 		this.guestDao.createGuest(guestDto);
@@ -91,6 +103,40 @@ public class ClubService implements AdminService, LoginService, PartnerService {
 			throw new Exception("The user with this id exists");
 		}
 		this.personDao.createPerson(personDto);
+	}
+
+	//Guest
+	@Override
+	public void createInvoice(InvoiceDto invoice, InvoiceDetailDto invoiceDetail) throws Exception{
+		UserDto user = new UserDto();
+		user.setUserNameDto("davin");
+		user = userDao.findByUserName(user);
+		PartnerDto partnerDto = partnerDao.findPartnerByUserId(user);
+		invoice.setPartnerIdDto(partnerDto.getUserIdDto());
+
+		UserDto user2 = new UserDto();
+		user2.setUserNameDto("aleja");
+		user2 = userDao.findByUserName(user2);
+		GuestDto guestDto = guestDao.findGuestByUserId(user2);
+		invoice.setPersonIdDto(guestDto.getUsarIdDto().getIdDto());
+
+		this.invoiceDao.createInvoice(invoice);
+		this.invoiceDetailDao.createInvoiceDetail(invoiceDetail);
+	}
+
+	//Partner
+	@Override
+	public void createInvoicePartner(InvoiceDto invoice, InvoiceDetailDto invoiceDetail) throws Exception{
+		UserDto user = new UserDto();
+		user.setUserNameDto("davin");
+		user = userDao.findByUserName(user);
+		PartnerDto partnerDto = partnerDao.findPartnerByUserId(user);
+		invoice.setPartnerIdDto(partnerDto.getUserIdDto());
+		invoice.setPersonIdDto(partnerDto.getUserIdDto().getIdDto());
+
+		this.invoiceDao.createInvoice(invoice);
+		invoiceDetail.setInvoiceIdDto(invoice);
+		//this.invoiceDetailDao.createInvoiceDetail(invoiceDetail);
 	}
 
 }
